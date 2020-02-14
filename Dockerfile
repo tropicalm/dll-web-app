@@ -17,14 +17,8 @@ COPY package.json /usr/src/app/
 # Bundle app source
 COPY . /usr/src/app
 
+RUN npm install -g serve
 RUN npm install
-RUN npm install node-sass@latest
 RUN npm run build
-
-# Expose P 3000
-EXPOSE 3000
-
-# Start service
-CMD [ "npm", "run", "start" ]
-# CMD [ "yarn", "run", "serve" ]
-
+EXPOSE 8080
+CMD ["serve", "-s", "-l", "8080", "./build"]
