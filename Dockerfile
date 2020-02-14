@@ -25,6 +25,7 @@ RUN npm run build
 # Expose P 3000
 EXPOSE 3000
 
+
 # Start service
 CMD [ "npm", "run", "start" ]
 # CMD [ "yarn", "run", "serve" ]
