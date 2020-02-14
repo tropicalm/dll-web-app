@@ -18,8 +18,8 @@ COPY package.json /usr/src/app/
 COPY . /usr/src/app
 
 RUN npm install
-RUN npm install node-sass@latest
-RUN npm run build
+# RUN npm install node-sass@latest
+# RUN npm run build
 
 # Expose P 3000
 EXPOSE 3000
