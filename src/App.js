@@ -4,7 +4,6 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebaseConfig";
-import "./App.scss"; // assuming a styles directory under src/
 
 import logo from "./assets/images/nextgrid-ai.jpg";
 
