@@ -4,8 +4,9 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from "./firebaseConfig";
-import logo from "./logo.svg";
-import "./App.css";
+import "./App.scss"; // assuming a styles directory under src/
+
+import logo from "./assets/images/nextgrid-ai.jpg";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -28,12 +29,17 @@ class App extends Component {
 
     return (
       <div className="App">
-        <header className="App-header">
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
-        </header>
+        <div className="App-wrapper">
+          <header className="App-header">
+            <h2>DEEP LEARNING LABS</h2>
+          </header>
+          <div className="App-auth-box">
+            <StyledFirebaseAuth
+              uiConfig={uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </div>
+        </div>
       </div>
     );
   }
