@@ -1,56 +1,40 @@
-import React, { Component } from "react";
-import withFirebaseAuth from "react-with-firebase-auth";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import React, { Component, useState } from "react";
+// import withFirebaseAuth from "react-with-firebase-auth";
+// import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import firebaseConfig from "./firebaseConfig";
+import { useAuthState } from "react-firebase-hooks/auth";
+// import Firebase from "./components/Firebase/firebase";
 
-import logo from "./assets/images/nextgrid-ai.jpg";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+// import Navigation from './components/Navigation';
+import LandingPage from "./components/Landing";
+import Form from "./components/Form";
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
+import * as ROUTES from "./constants/routes";
 
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: "/signedIn",
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
-  ]
-};
+const App = () => {
+  const [user, initialising, error] = useAuthState(firebase.auth());
+  console.log(`this is user info ${JSON.stringify(user)}`);
 
-class App extends Component {
-  render() {
-    const { user, signOut, signInWithGoogle } = this.props;
-
+  if (user) {
     return (
-      <div className="App">
-        <div className="App-wrapper">
-          <header className="App-header">
-            <h2>DEEP LEARNING LABS</h2>
-          </header>
-          <div className="App-auth-box">
-            <StyledFirebaseAuth
-              uiConfig={uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          </div>
-        </div>
-      </div>
+      <Router>
+        <p>Current User: {user.email}</p>
+        <button>Log out</button>
+        <Route exact path={ROUTES.FORM} component={Form} />
+      </Router>
     );
   }
-}
-
-const firebaseAppAuth = firebaseApp.auth();
-
-const providers = {
-  googleProvider: new firebase.auth.GoogleAuthProvider()
+  return (
+    <Router>
+      <div className="App">
+        <div className="App-wrapper">
+          <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        </div>
+      </div>
+    </Router>
+  );
 };
 
-export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth
-})(App);
+export default App;
