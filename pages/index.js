@@ -1,13 +1,15 @@
 import Head from "next/head";
+import Header from "./../components/header";
 
 const Home = () => (
   <div className="container">
     <Head>
-      <title>Create Next App</title>
+      <title>Deep Learning Labs</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
     <main>
+      <Header />
       <h1 className="title">
         Welcome to <a href="https://nextjs.org">DLL!</a>
       </h1>
