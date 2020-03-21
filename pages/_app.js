@@ -1,8 +1,14 @@
 // import App from 'next/app'
+import Header from "./../components/header/index.js";
+// import Header from "./../components/header";
 
-function MyApp({ Component, pageProps }) {
-  console.log("HELLO WORLD");
-  return <Component {...pageProps} />;
+function App({ Component, pageProps }) {
+  return (
+    <div>
+      <Header />
+      <Component {...pageProps} />
+    </div>
+  );
 }
 
 // Only uncomment this method if you have blocking data requirements for
@@ -17,4 +23,4 @@ function MyApp({ Component, pageProps }) {
 //   return { ...appProps }
 // }
 
-export default MyApp;
+export default App;

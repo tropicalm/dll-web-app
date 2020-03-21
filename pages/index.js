@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Header from "./../components/header";
 
 const Home = () => (
   <div className="container">
@@ -9,7 +8,6 @@ const Home = () => (
     </Head>
 
     <main>
-      <Header />
       <h1 className="title">
         Welcome to <a href="https://nextjs.org">DLL!</a>
       </h1>
@@ -19,17 +17,17 @@ const Home = () => (
       <div className="grid">
         <a href="/about" className="card">
           <h3>About &rarr;</h3>
-          <p>Find in-depth information about Next.js features and API.</p>
+          <p>Find in-depth information about DLL features and events.</p>
         </a>
 
         <a href="/team" className="card">
           <h3>Team &rarr;</h3>
-          <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <p>Create a Team and invite your team members!</p>
         </a>
 
         <a href="/team/admin" className="card">
-          <h3>Teams page &rarr;</h3>
-          <p>Discover and deploy boilerplate example Next.js projects.</p>
+          <h3>Leaderboard &rarr;</h3>
+          <p>Live leaderboard & Global leaderboards</p>
         </a>
 
         <a href="/user/mathias" className="card">
