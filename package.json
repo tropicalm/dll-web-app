@@ -20,7 +20,8 @@
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "session-file-store": "^1.4.0"
+    "session-file-store": "^1.4.0",
+    "swr": "^0.1.18"
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^7.9.0",

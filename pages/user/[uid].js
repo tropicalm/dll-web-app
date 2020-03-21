@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-const { getFs } = require('./../../lib/firebase/firebase')
 import fetch from "isomorphic-unfetch";
 import Header from './../../components/header'
 
@@ -11,12 +10,18 @@ import Header from './../../components/header'
 
 
 const User = ({ data }) => {
+
+
   const router = useRouter()
   const { uid } = router.query
-  console.log(uid)
-  console.log(data)
+  const { name, surename } = data;
 
-  return <div>User: {uid}</div>
+
+
+  return <div>User:{uid}
+    firstname: {name}
+    lastname: {surename}
+  </div>
 }
 
 
@@ -25,21 +30,19 @@ const User = ({ data }) => {
 // Get user query with context.query.uid
 export async function getServerSideProps(context) {
   // Call an external API endpoint to get users.
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
+  const res = await fetch(`http://localhost:3000/api/db/db?collection=users&doc=${context.query.uid}`)
   const data = await res.json()
+  // console.log(data)
 
   // console.log(`Show data fetched. Count: ${data.length}`);
-  console.log(context.query.uid)
-  console.log('cats')
+  // console.log(context.query.uid)
+  // console.log('cats')
 
   // By returning { props: data }
   // will receive `data` as a prop at build time
-  return {
-    props: {
-      data,
-    },
-  }
+  return { props: { data } }
 }
+
 
 
 export default User
