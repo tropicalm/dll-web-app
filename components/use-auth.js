@@ -1,5 +1,6 @@
 // Hook (use-auth.js)
 import React, { useState, useEffect, useContext, createContext } from "react";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import client from "./../credentials/client";
 import * as firebase from "firebase/app";
 import "firebase/auth";
@@ -13,7 +14,7 @@ if (!firebase.apps.length) {
     projectId: "nextgrid-254813",
     storageBucket: "nextgrid-254813.appspot.com",
     messagingSenderId: "78431916316",
-    appId: "1:78431916316:web:06639c2d0c232badd66ad9"
+    appId: "1:78431916316:web:06639c2d0c232badd66ad9",
   });
 }
 
@@ -34,6 +35,25 @@ export const useAuth = () => {
   return useContext(authContext);
 };
 
+// Configure FirebaseUI.
+const uiConfig = {
+  // Popup signin flow rather than redirect flow.
+  signInFlow: "popup",
+  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+  signInSuccessUrl: "/signedIn",
+  // We will display Google and Facebook as auth providers.
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+  ],
+};
+
+const loginButton = () => {
+  return (
+    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+  );
+};
+
 // Provider hook that creates auth object and handles state
 function useProvideAuth() {
   const [user, setUser] = useState(null);
@@ -44,7 +64,7 @@ function useProvideAuth() {
     return firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(response => {
+      .then((response) => {
         setUser(response.user);
         return response.user;
       });
@@ -54,7 +74,7 @@ function useProvideAuth() {
     return firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(response => {
+      .then((response) => {
         setUser(response.user);
         return response.user;
       });
@@ -69,7 +89,7 @@ function useProvideAuth() {
       });
   };
 
-  const sendPasswordResetEmail = email => {
+  const sendPasswordResetEmail = (email) => {
     return firebase
       .auth()
       .sendPasswordResetEmail(email)
@@ -92,7 +112,7 @@ function useProvideAuth() {
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setUser(user);
       } else {
@@ -107,10 +127,13 @@ function useProvideAuth() {
   // Return the user object and auth methods
   return {
     user,
+
     signin,
     signup,
     signout,
     sendPasswordResetEmail,
-    confirmPasswordReset
+    confirmPasswordReset,
   };
 }
+
+// export default { loginButton };

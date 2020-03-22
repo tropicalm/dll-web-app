@@ -1,4 +1,5 @@
 // import App from 'next/app'
+import "./../assets/style.css";
 import Header from "./../components/header/index.js";
 import { ProvideAuth } from "./../components/use-auth";
 // import Header from "./../components/header";
