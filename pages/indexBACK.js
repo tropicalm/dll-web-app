@@ -26,7 +26,7 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    firebase.initializeApp(clientCredentials);
+    // firebase.initializeApp(clientCredentials)
 
     if (this.state.user) console.log("Logged");
 
@@ -53,47 +53,6 @@ export default class Index extends Component {
       }
     });
   }
-
-  // addDbListener() {
-  //   var db = firebase.firestore()
-  //   let unsubscribe = db.collection('messages').onSnapshot(
-  //     querySnapshot => {
-  //       var messages = {}
-  //       querySnapshot.forEach(function(doc) {
-  //         messages[doc.id] = doc.data()
-  //       })
-  //       if (messages) this.setState({ messages })
-  //     },
-  //     error => {
-  //       console.error(error)
-  //     }
-  //   )
-  //   this.setState({ unsubscribe })
-  // }
-
-  // removeDbListener() {
-  //   // firebase.database().ref('messages').off()
-  //   if (this.state.unsubscribe) {
-  //     this.state.unsubscribe()
-  //   }
-  // }
-
-  // handleChange(event) {
-  //   this.setState({ value: event.target.value })
-  // }
-
-  // handleSubmit(event) {
-  //   event.preventDefault()
-  //   var db = firebase.firestore()
-  //   const date = new Date().getTime()
-  //   db.collection('messages')
-  //     .doc(`${date}`)
-  //     .set({
-  //       id: date,
-  //       text: this.state.value,
-  //     })
-  //   this.setState({ value: '' })
-  // }
 
   handleLogin() {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
