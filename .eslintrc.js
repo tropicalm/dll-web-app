@@ -1,25 +1,37 @@
 module.exports = {
-  extends: ["prettier"],
-  plugins: ["prettier", "chai-expect"],
+  extends: ["prettier", "eslint:recommended", "plugin:react/recommended"],
+  plugins: ["react", "prettier", "chai-expect"],
+  parser: "babel-eslint",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+      modules: true
+    }
+  },
   rules: {
     "import/no-unresolved": "off",
     "no-console": "off",
-    "shopify/jsx-no-hardcoded-content": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off"
   },
-  parser: "babel-eslint",
-  overrides: [
-    {
-      files: ["*.test.*"],
-      rules: {
-        "shopify/jsx-no-hardcoded-content": "off",
-        "react/react-in-jsx-scope": "off",
-        "jsx-a11y/anchor-is-valid": "off"
-      }
-    }
-  ],
+  globals: {
+    React: "writable"
+  },
+
   env: {
+    es6: true,
     browser: true,
     node: true
+  },
+  settings: {
+    react: {
+      createClass: "createReactClass", // Regex for Component Factory to use,
+      // default to "createReactClass"
+      pragma: "React", // Pragma to use, default to "React"
+      version: "detect" // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+    }
   }
 };
