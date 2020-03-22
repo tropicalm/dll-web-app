@@ -1,12 +1,16 @@
-import { useRouter } from 'next/router'
-import Header from './../../components/header'
+import { useRouter } from "next/router";
+import Header from "./../../components/header";
 
 const Team = () => {
-    const router = useRouter()
-    const { tid } = router.query
-    console.log(tid)
+  const router = useRouter();
+  const { tid } = router.query;
+  console.log(tid);
 
-    return <div><Header /> Team: {tid}</div>
-}
+  return (
+    <div>
+      <Header /> Team: {tid}
+    </div>
+  );
+};
 
-export default Team
+export default Team;
