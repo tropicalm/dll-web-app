@@ -6,7 +6,6 @@ FROM node:alpine
 RUN apk update
 RUN apk upgrade
 RUN apk add --update python make g++
-RUN npm install -g yarn
 
 RUN mkdir -p /usr/src/app
 # Set workdirr
@@ -19,7 +18,6 @@ COPY package.json /usr/src/app/
 COPY . /usr/src/app
 
 RUN npm install
-RUN npm install node-sass@latest
 RUN npm run build
 
 # Expose P 3000
