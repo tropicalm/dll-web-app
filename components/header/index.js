@@ -85,34 +85,45 @@
 //     )
 //   }
 // }
-
+import React, { Fragment } from "react";
 import Link from "next/link";
+import { useAuth, signin } from "./../use-auth.js";
 
-const Header = () => (
-  <header>
-    <ul>
-      <li>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/about">
-          <a>About</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/[id]" as="/post/first">
-          <a>First Post</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/post/[id]" as="/post/second">
-          <a>Second Post</a>
-        </Link>
-      </li>
-    </ul>
-  </header>
-);
+const Header = props => {
+  const auth = useAuth();
+  console.log(auth);
+
+  return (
+    <header>
+      <ul>
+        <li>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </li>
+        {auth.user ? (
+          <Fragment>({auth.user.email})</Fragment>
+        ) : (
+          <button onClick={() => auth.signin()}>Signout</button>
+        )}
+        <li>
+          <Link href="/about">
+            <a>About</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/post/[id]" as="/post/first">
+            <a>First Post</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/post/[id]" as="/post/second">
+            <a>Second Post</a>
+          </Link>
+        </li>
+      </ul>
+    </header>
+  );
+};
 
 export default Header;

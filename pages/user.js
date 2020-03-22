@@ -8,7 +8,7 @@ import clientCredentials from "../credentials/client";
 const User = ({ user }) => {
   console.log(user);
 
-  firebase.initializeApp(clientCredentials);
+  // firebase.initializeApp(clientCredentials);
 
   // if (this.state.user)
 

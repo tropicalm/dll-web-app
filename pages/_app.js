@@ -1,13 +1,14 @@
 // import App from 'next/app'
 import Header from "./../components/header/index.js";
+import { ProvideAuth } from "./../components/use-auth";
 // import Header from "./../components/header";
 
 function App({ Component, pageProps }) {
   return (
-    <div>
+    <ProvideAuth>
       <Header />
       <Component {...pageProps} />
-    </div>
+    </ProvideAuth>
   );
 }
 
