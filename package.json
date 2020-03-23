@@ -11,6 +11,8 @@
     "prettier": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,css,html,yml,yaml,scss,sass}\""
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "autoprefixer": "^9.7.4",
     "babel-eslint": "^10.1.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
@@ -19,8 +21,11 @@
     "firebase-admin": "^8.10.0",
     "isomorphic-unfetch": "3.0.0",
     "next": "latest",
+    "postcss-import": "^12.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-firebaseui": "^4.1.0",
+    "sass": "^1.26.3",
     "session-file-store": "^1.4.0",
     "swr": "^0.1.18"
   },
@@ -40,7 +45,9 @@
     "jest": "25.1.0",
     "lint-staged": "^10.0.8",
     "nodemon": "^2.0.2",
-    "prettier": "2.0.1"
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.0.1",
+    "tailwindcss": "^1.2.0"
   },
   "husky": {
     "hooks": {

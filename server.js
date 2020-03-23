@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const FileStore = require("session-file-store")(session);
 const next = require("next");
-const admin = require("firebase-admin");
+// const admin = require("firebase-admin");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -11,12 +11,9 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 // if (!admin.apps.length) {
-const firebase = admin.initializeApp(
-  {
-    credential: admin.credential.cert(require("./credentials/server"))
-  },
-  "server"
-);
+// const firebase = admin.initializeApp({
+//   credential: admin.credential.cert(require("./credentials/server")),
+// });
 // }
 
 app.prepare().then(() => {
@@ -30,40 +27,40 @@ app.prepare().then(() => {
       store: new FileStore({ secret: "geheimnis" }),
       resave: false,
       rolling: true,
-      cookie: { maxAge: 604800000, httpOnly: true } // week
+      cookie: { maxAge: 604800000, httpOnly: true }, // week
     })
   );
 
   server.use((req, res, next) => {
-    req.firebaseServer = firebase;
+    // req.firebaseServer = firebase;
     next();
   });
 
-  server.post("/api/login", (req, res) => {
-    if (!req.body) return res.sendStatus(400);
+  // server.post("/api/login", (req, res) => {
+  //   if (!req.body) return res.sendStatus(400);
 
-    const token = req.body.token;
-    firebase
-      .auth()
-      .verifyIdToken(token)
-      .then(decodedToken => {
-        req.session.decodedToken = decodedToken;
-        return decodedToken;
-      })
-      .then(decodedToken => res.json({ status: true, decodedToken }))
-      .catch(error => res.json({ error }));
-  });
+  //   const token = req.body.token;
+  //   firebase
+  //     .auth()
+  //     .verifyIdToken(token)
+  //     .then((decodedToken) => {
+  //       req.session.decodedToken = decodedToken;
+  //       return decodedToken;
+  //     })
+  //     .then((decodedToken) => res.json({ status: true, decodedToken }))
+  //     .catch((error) => res.json({ error }));
+  // });
 
-  server.post("/api/logout", (req, res) => {
-    req.session.decodedToken = null;
-    res.json({ status: true });
-  });
+  // server.post("/api/logout", (req, res) => {
+  //   req.session.decodedToken = null;
+  //   res.json({ status: true });
+  // });
 
   server.get("*", (req, res) => {
     return handle(req, res);
   });
 
-  server.listen(port, err => {
+  server.listen(port, (err) => {
     if (err) throw err;
     console.log(`> Ready on http://localhost:${port}`);
   });

@@ -1,0 +1,9 @@
+@use "./../node_modules/tailwindcss/components";
+
+// @use "./../node_modules/tailwindcss/components";
+
+@use "./../node_modules/tailwindcss/utilities";
+
+header {
+  background: pink;
+}

@@ -9,6 +9,8 @@ A SSR (server side rendering) Node application
 - Next.js
 - React
 - Firestore & Firebase
+- isomorphic-unfetch
+- SWR
 
 ### Links
 
