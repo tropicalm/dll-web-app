@@ -1,128 +1,81 @@
-// import React, { Component } from 'react'
-// import firebase from 'firebase/app'
-// import 'firebase/auth'
-// import 'firebase/firestore'
-// import 'isomorphic-unfetch'
-// import clientCredentials from '../credentials/client'
-
-// export default class Index extends Component {
-//   static async getInitialProps({ req, query }) {
-//     const user = req && req.session ? req.session.decodedToken : null
-//     console.log(user)
-//     // don't fetch anything from firebase if the user is not found
-//     // const snap = user && await req.firebaseServer.database().ref('messages').once('value')
-//     // const messages = snap && snap.val()
-//     const messages = null
-//     return { user, messages }
-//   }
-
-//   constructor(props) {
-//     super(props)
-//     this.state = {
-//       user: this.props.user,
-//       value: '',
-//       messages: this.props.messages,
-//     }
-
-//   }
-
-//   componentDidMount() {
-//     firebase.initializeApp(clientCredentials)
-
-//     if (this.state.user) console.log('Logged')
-
-//     firebase.auth().onAuthStateChanged(user => {
-//       if (user) {
-//         this.setState({ user: user })
-//         return user
-//           .getIdToken()
-//           .then(token => {
-//             // eslint-disable-next-line no-undef
-//             return fetch('/api/login', {
-//               method: 'POST',
-//               // eslint-disable-next-line no-undef
-//               headers: new Headers({ 'Content-Type': 'application/json' }),
-//               credentials: 'same-origin',
-//               body: JSON.stringify({ token }),
-//             })
-//           })
-
-//       } else {
-//         this.setState({ user: null })
-//         // eslint-disable-next-line no-undef
-//         fetch('/api/logout', {
-//           method: 'POST',
-//           credentials: 'same-origin',
-//         })
-//       }
-//     })
-//   }
-
-//   handleLogin() {
-//     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())
-//   }
-
-//   handleLogout() {
-//     firebase.auth().signOut()
-//   }
-
-//   render() {
-//     const { user, value, messages } = this.state
-
-//     return (
-//       <div>
-//         {user ? (
-//           <button onClick={this.handleLogout}>Logout</button>
-//         ) : (
-//             <button onClick={this.handleLogin}>Login</button>
-//           )}
-//         {user && (
-//           <div>
-
-//           </div>
-//         )}
-//       </div>
-//     )
-//   }
-// }
 import React, { Fragment } from "react";
 import Link from "next/link";
-import { useAuth, signin } from "./../use-auth.js";
+import { useAuth, signin, loginButton } from "./../use-auth.js";
 
-const Header = props => {
+/**
+ * Header component
+ * included in _app.js
+ * @param {*} props
+ */
+
+const Header = (props) => {
   const auth = useAuth();
   console.log(auth);
 
   return (
-    <header>
-      <ul>
-        <li>
+    <nav className="flex items-center justify-between flex-wrap bg-white-500 p-6 shadow-lg">
+      <div className="flex items-center flex-shrink-0 text-black mr-6">
+        <svg
+          className="fill-current h-8 w-8 mr-2"
+          width="54"
+          height="54"
+          viewBox="0 0 54 54"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M13.5 22.1c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05zM0 38.3c1.8-7.2 6.3-10.8 13.5-10.8 10.8 0 12.15 8.1 17.55 9.45 3.6.9 6.75-.45 9.45-4.05-1.8 7.2-6.3 10.8-13.5 10.8-10.8 0-12.15-8.1-17.55-9.45-3.6-.9-6.75.45-9.45 4.05z" />
+        </svg>
+        <span className="font-semibold text-xl tracking-tight">
+          DLL International
+        </span>
+      </div>
+      <div className="block lg:hidden">
+        <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+          <svg
+            className="fill-current h-3 w-3"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <title>Menu</title>
+            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+          </svg>
+        </button>
+      </div>
+      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="text-sm lg:flex-grow">
           <Link href="/">
-            <a>Home</a>
+            <a className="block mt-4 lg:inline-block lg:mt-0 text-black-500 hover:text-white mr-4">
+              Home
+            </a>
           </Link>
-        </li>
-        {auth.user ? (
-          <Fragment>({auth.user.email})</Fragment>
-        ) : (
-          <button onClick={() => auth.signin()}>Signout</button>
-        )}
-        <li>
-          <Link href="/about">
-            <a>About</a>
+          <Link href="/login">
+            <a className="block mt-4 lg:inline-block lg:mt-0 text-black-100 hover:text-white mr-4">
+              Login
+            </a>
           </Link>
-        </li>
-        <li>
-          <Link href="/post/[id]" as="/post/first">
-            <a>First Post</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/post/[id]" as="/post/second">
-            <a>Second Post</a>
-          </Link>
-        </li>
-      </ul>
-    </header>
+          <a
+            href="#responsive-header"
+            className="block mt-4 lg:inline-block lg:mt-0 text-black-900 hover:text-white"
+          >
+            Blog
+          </a>
+        </div>
+        <div>
+          {auth.user ? (
+            <Fragment>
+              <Link href={`/user/${auth.user.email}`}>
+                <a>Profile</a>
+              </Link>
+
+              <button onClick={() => auth.signout()}>Signout</button>
+            </Fragment>
+          ) : (
+            <Link href="/login">
+              <a>Login</a>
+            </Link>
+          )}
+        </div>
+      </div>
+    </nav>
   );
 };
 

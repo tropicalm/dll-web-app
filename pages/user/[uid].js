@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import fetch from "isomorphic-unfetch";
-import Header from "./../../components/header";
 
 /**
  * Display user specific data
@@ -30,11 +29,6 @@ export async function getServerSideProps(context) {
     `http://localhost:3000/api/db/db?collection=users&doc=${context.query.uid}`
   );
   const data = await res.json();
-  // console.log(data)
-
-  // console.log(`Show data fetched. Count: ${data.length}`);
-  // console.log(context.query.uid)
-  // console.log('cats')
 
   // By returning { props: data }
   // will receive `data` as a prop at build time
