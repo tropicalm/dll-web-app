@@ -12,7 +12,24 @@ A SSR (server side rendering) Node application
 - isomorphic-unfetch
 - SWR
 
-### Links
+## How to use
+
+### Configuration
+
+1. [Create a Firebase project](https://console.firebase.google.com/u/0/) and add a new app to it.
+2. Set each variable on `.env` with your Firebase Configuration (found in "Project settings").
+
+### Install and run
+
+```bash
+npm install
+npm run dev
+# or
+yarn
+yarn dev
+```
+
+## Links
 
 https://swr.now.sh/  
 https://nextjs.org/docs/

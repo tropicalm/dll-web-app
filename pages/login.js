@@ -2,21 +2,8 @@ import Link from "next/link";
 import React, { Fragment } from "react";
 import { useAuth } from "./../components/use-auth";
 import userCreate from "./../lib/functions/user-create";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "firebase";
-
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: "/",
-  // We will display Google and Facebook as auth providers.
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-  ],
-};
+import FirebaseAuth from "../components/FirebaseAuth";
+import { authConfig } from "../lib/firebase/clientApp";
 
 const checkUser = async () => {
   const test = await userCreate("dsadasd");
@@ -25,30 +12,24 @@ const checkUser = async () => {
 };
 
 const Login = () => {
-  const auth = useAuth();
-  auth.user ? checkUser(auth.user) : console.log("dsad NOOO");
-
-  // console.log(auth.user.displayName);
-  console.log(auth.user);
+  const { user, signIn } = useAuth();
+  user ? checkUser(user) : console.log("dsad NOOO");
 
   return (
     <div>
-      {auth.user ? (
+      {user ? (
         <Fragment key="1">
           <div>
-            <img src={`${auth.user.photoURL}`} />
-            {auth.user.email}
-            {auth.user.uid}
-            {auth.user.displayName}
+            <img src={`${user.photoURL}`} />
+            {user.email}
+            {user.uid}
+            {user.displayName}
             <h1>THANK U</h1>
           </div>
         </Fragment>
       ) : (
         <Fragment key="2">
-          <StyledFirebaseAuth
-            uiConfig={uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
+          <FirebaseAuth signIn={signIn} authConfig={authConfig} />
         </Fragment>
       )}
     </div>

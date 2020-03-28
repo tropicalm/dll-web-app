@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Link from "next/link";
-import { useAuth, signin, loginButton } from "./../use-auth.js";
+import { useAuth } from "../use-auth";
 
 /**
  * Header component
@@ -8,9 +8,8 @@ import { useAuth, signin, loginButton } from "./../use-auth.js";
  * @param {*} props
  */
 
-const Header = (props) => {
-  const auth = useAuth();
-  console.log(auth);
+const Header = () => {
+  const { user, signOut } = useAuth();
 
   return (
     <nav className="flex items-center justify-between flex-wrap bg-white-500 p-6 shadow-lg">
@@ -59,13 +58,13 @@ const Header = (props) => {
           </Link>
         </div>
         <div>
-          {auth.user ? (
+          {user ? (
             <Fragment>
-              <Link href={`/user/${auth.user.email}`}>
+              <Link href={`/user/${user.email}`}>
                 <a>Profile</a>
               </Link>
 
-              <button onClick={() => auth.signout()}>Signout</button>
+              <button onClick={signOut}>Signout</button>
             </Fragment>
           ) : (
             <Link href="/login">
