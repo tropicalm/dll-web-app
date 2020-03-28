@@ -1,4 +1,4 @@
-const { getFs, writeFs } = require("./../../../lib/firebase/firebase");
+const { getFs, writeFs } = require("./../../../lib/firebase/firestore");
 
 export default async (req, res) => {
   const {

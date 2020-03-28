@@ -49,15 +49,14 @@ const Header = (props) => {
           </Link>
           <Link href="/login">
             <a className="block mt-4 lg:inline-block lg:mt-0 text-black-100 hover:text-white mr-4">
-              Login
+              Teams
             </a>
           </Link>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 text-black-900 hover:text-white"
-          >
-            Blog
-          </a>
+          <Link href="/">
+            <a className="block mt-4 lg:inline-block lg:mt-0 text-black-500 hover:text-white mr-4">
+              Leaderboard
+            </a>
+          </Link>
         </div>
         <div>
           {auth.user ? (

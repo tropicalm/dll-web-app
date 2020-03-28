@@ -3,7 +3,6 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 import "isomorphic-unfetch";
-import clientCredentials from "../credentials/client";
 
 const User = ({ user }) => {
   console.log(user);
@@ -12,17 +11,16 @@ const User = ({ user }) => {
 
   // if (this.state.user)
 
-  firebase.auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       // this.setState({ user: user })
-      return user.getIdToken().then(token => {
-        // eslint-disable-next-line no-undef
+      return user.getIdToken().then((token) => {
         return fetch("http://localhost:3000/api/login", {
           method: "POST",
-          // eslint-disable-next-line no-undefs
+
           headers: new Headers({ "Content-Type": "application/json" }),
           credentials: "same-origin",
-          body: JSON.stringify({ token })
+          body: JSON.stringify({ token }),
         });
       });
     } else {
@@ -30,7 +28,7 @@ const User = ({ user }) => {
       // eslint-disable-next-line no-undef
       fetch("http://localhost:3000/api/logout", {
         method: "POST",
-        credentials: "same-origin"
+        credentials: "same-origin",
       });
     }
   });

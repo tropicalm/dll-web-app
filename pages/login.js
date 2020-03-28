@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React, { Fragment } from "react";
-import { useAuth, signin } from "./../components/use-auth";
+import { useAuth } from "./../components/use-auth";
+import userCreate from "./../lib/functions/user-create";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import firebase from "firebase";
 
@@ -17,29 +18,39 @@ const uiConfig = {
   ],
 };
 
-const Login = (props) => {
+const checkUser = async () => {
+  const test = await userCreate("dsadasd");
+  console.log("user created func");
+  console.log(test);
+};
+
+const Login = () => {
   const auth = useAuth();
+  auth.user ? checkUser(auth.user) : console.log("dsad NOOO");
+
   // console.log(auth.user.displayName);
   console.log(auth.user);
 
   return (
     <div>
       {auth.user ? (
-        <Fragment>
+        <Fragment key="1">
           <div>
             <img src={`${auth.user.photoURL}`} />
+            {auth.user.email}
+            {auth.user.uid}
+            {auth.user.displayName}
             <h1>THANK U</h1>
           </div>
         </Fragment>
       ) : (
-        <Fragment>
+        <Fragment key="2">
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
           />
         </Fragment>
       )}
-      {useAuth.signup}
     </div>
   );
 };

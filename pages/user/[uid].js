@@ -29,7 +29,7 @@ export async function getServerSideProps(context) {
     `http://localhost:3000/api/db/db?collection=users&doc=${context.query.uid}`
   );
   const data = await res.json();
-
+  console.log(data);
   // By returning { props: data }
   // will receive `data` as a prop at build time
   return { props: { data } };
