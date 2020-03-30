@@ -3,7 +3,6 @@ import React, { Fragment } from "react";
 import { useAuth } from "./../components/use-auth";
 import userCreate from "./../lib/functions/user-create";
 import FirebaseAuth from "../components/FirebaseAuth";
-import { authConfig } from "../lib/firebase/clientApp";
 
 const checkUser = async () => {
   const test = await userCreate("dsadasd");
@@ -12,7 +11,7 @@ const checkUser = async () => {
 };
 
 const Login = () => {
-  const { user, signIn } = useAuth();
+  const { user } = useAuth();
   user ? checkUser(user) : console.log("dsad NOOO");
 
   return (
@@ -29,7 +28,7 @@ const Login = () => {
         </Fragment>
       ) : (
         <Fragment key="2">
-          <FirebaseAuth signIn={signIn} authConfig={authConfig} />
+          <FirebaseAuth />
         </Fragment>
       )}
     </div>

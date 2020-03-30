@@ -1,26 +1,30 @@
 import "./../assets/style.css";
-import ProvideAuth from "../components/use-auth";
+import AuthContextProvider from "../components/use-auth";
 import Header from "./../components/header";
 
-function App({ Component, pageProps }) {
+import { parseCookies } from "nookies";
+import jwtDecode from "jwt-decode";
+
+function App({ Component, pageProps, user }) {
   return (
-    <ProvideAuth>
+    <AuthContextProvider user={user}>
       <Header />
       <Component {...pageProps} />
-    </ProvideAuth>
+    </AuthContextProvider>
   );
 }
 
-// Only uncomment this method if you have blocking data requirements for
-// every single page in your application. This disables the ability to
-// perform automatic static optimization, causing every page in your app to
-// be server-side rendered.
-//
-// MyApp.getInitialProps = async (appContext) => {
-//   // calls page's `getInitialProps` and fills `appProps.pageProps`
-//   const appProps = await App.getInitialProps(appContext);
-//
-//   return { ...appProps }
-// }
+App.getInitialProps = async ({ ctx }) => {
+  const cookies = parseCookies(ctx);
+
+  try {
+    const decodedToken = jwtDecode(cookies.session);
+    const userId = decodedToken && decodedToken.user_id;
+    return { userId };
+  } catch (err) {
+    //console.log(err);
+  }
+  return {};
+};
 
 export default App;
